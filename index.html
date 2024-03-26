@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description"
+        content="MIST: Mitigating Intersectional Bias with Disentangled Cross-Attention Editing in Text-to-Image Diffusion Models">
+        <meta name="keywords" content="Diffusion Models, Fairness, Bias Mitigation">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://www.w3counter.com/tracker.js?id=151390"></script>
+        <title>MIST</title>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+        dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-PYVRSFMDRL');
+        </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    </head>
+
+    <body>
+
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container is-max-desktop">
+            <div class="columns is-centered">
+              <div class="column has-text-centered">
+                <h1 class="title is-1 publication-title">MIST: Mitigating Intersectional Bias with Disentangled Cross-Attention Editing in Text-to-Image Diffusion Models</h1>
+                <h3 class="title is-3">CVPR 2024</h3>
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block">
+                    <a href="https://sites.google.com/view/hidir-yesiltepe">Hidir Yesiltepe</a>,</span>
+                  <span class="author-block">
+                    <a href="#">Kiymet Akdemir</a>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://pinguar.org/">Pinar Yanardag</a>
+                  </span>
+                </div>
+      
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block">Virginia Tech</span>
+                </div>
+      
+                <div class="column has-text-centered">
+                  <div class="publication-links">
+                    <!-- PDF Link. -->
+                    <span class="link-block">
+                      <!-- TODO: Change -->
+                      <a href="https://arxiv.org/abs/2312.05390" 
+                         class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+                    <!-- Code Link. -->
+                    <span class="link-block">
+                      <a
+                         class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                            <i class="fab fa-github"></i>
+                        </span>
+                        <span>Code (Coming soon)</span>
+                        </a>
+                    </span>
+                    <!-- Dataset Link. -->
+                    <!-- <span class="link-block">
+                      <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                         class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                            <i class="far fa-images"></i>
+                        </span>
+                        <span>Data</span>
+                        </a> -->
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero teaser">
+        <div class="container is-max-desktop">
+          <div class="hero-body">
+            <h4 class="subtitle">
+                <b>TL;DR</b> We introduce a novel method to fine-tune cross-attention weights in text-to-image diffusion models, 
+                effectively mitigating biases across multiple attributes using a compressed single token embedding. Our approach preserves surrounding 
+                attributes, surpassing previous methods in both singular and intersectional bias reduction. Drawing inspiration 
+                from NLP, our technique capitalizes on the structured composition of text embeddings in text-to-image diffusion
+                 models to achieve disentangled editing.
+                <!--
+                <span class="dnerf">NoiseCLR</span> discovers semantic directions in latent diffusion models in a completely unsupervised manner. 
+                With this work, we present latent directions discovered in domains such as Art, Fashion, Face, Cats and Cars in Stable Diffusion. -->
+            </h4>
+            <div class="container">
+                <img src="./static/images/teaser.png" />
+                <br/>
+                <p>
+                  Existing text-to-image model such as Stable Diffusion exhibit significant biases, including intersectional bias that affects people who are 
+                  part of two or more marginalized groups (left). MIST finetunes the cross-attention maps of the SD model to mitigate biases related to single 
+                  or intersectional attributes, such as (<i>gender</i>), (<i>gender</i> & <i>race</i> & <i>age</i>) (right).
+                </p>
+            </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <!-- Abstract. -->
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3">Abstract</h2>
+              <div class="content has-text-justified">
+                <p>
+                  Diffusion-based text-to-image models have rapidly gained popularity for their ability to generate detailed and realistic images from textual 
+                  descriptions. However, these models often reflect the biases present in their training data, especially impacting marginalized groups. 
+                  While prior efforts to debias language models have focused on addressing specific biases, such as racial or gender biases, efforts to tackle 
+                  intersectional bias have been limited. Intersectional bias refers to the unique form of bias experienced by individuals at the intersection of 
+                  multiple social identities. Addressing intersectional bias is crucial because it amplifies the negative effects of discrimination based on 
+                  race, gender, and other identities. In this paper, we introduce a method that addresses intersectional bias in diffusion-based text-to-image models
+                  by modifying cross-attention maps in a disentangled manner. Our approach utilizes a pre-trained Stable Diffusion model, eliminates the need for an
+                  additional set of reference images, and preserves  the original quality for unaltered concepts. Comprehensive experiments demonstrate that our 
+                  method surpasses existing approaches in mitigating both single and intersectional biases across various attributes. We make our source code and debiased 
+                  models for various attributes available to encourage fairness in generative models and to support further research.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!--/ Abstract. -->
+      
+        
+        <!-- Method -->
+        <section class="section">
+          <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-12">
+                <h2 class="title is-3">Method</h2>
+      
+                <div class="content has-text-justified">
+                  <!--
+                  <p>
+                   Explain method
+                  </p>
+                -->
+                  <div class="container">
+                    <img src="./static/images/method.png" />
+                    <br />
+                  </div>
+      
+                  <p>
+                    Given a source embedding such as <i>"A nurse"</i> and a guidance embedding such as <i>"A female nurse"</i>, 
+                    <b>MIST</b> debiases the source attribute with respect to the guidance. In particular, we inject the [EOS] token from the guidance into the source embedding (left) to update the cross attention layers in a disentangled manner (right). 
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+           <!--/ Method -->
+      
+          <!-- Paper video. -->
+          <section class="section">
+            <div class="container is-max-desktop">
+                <h1 class="title is-3 has-text-centered">Disentanglement Capabilities of [EOS] Token</h1>
+              <div class="columns is-centered has-text-centered">
+                <div class="column is-12">
+        
+                  <div class="content has-text-justified">
+                    <!--
+                    <p>
+                     Explain method
+                    </p>
+                  -->
+                  <!-- <h4 class="title is-4 has-text-centered">Results on Face Domain</h4> -->
+                    <div class="container" style="width: 100%;">
+                      <img src="./static/images/intuition.png" width="100%"/>
+                      <br/>
+                    </div>
+        
+                    <p>
+                      <b>Observation: [EOS] token enables disentangled editing:</b> Given a text embedding C = {c<sub>[SOS]</sub>, c<sub>1</sub>, ..., c<sub>N</sub>, c<sub>[EOS]</sub> }, 
+                      we observe that the generation process can be controlled in a highly disentangled manner by the end-of-sentence token c<sub>[EOS]</sub>. 
+                      (a) Original images are generated with prompt <i>"a woman"</i> with <i>lipstick</i> and <i>race</i> edits applied. 
+                      (b) [EOS] can also handle edits involving multiple attributes simultaneously such as transforming input images with <i>"Asian male person with eyeglasses"</i> prompt.
+                    </p>
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="container is-max-desktop">
+                <h1 class="title is-3 has-text-centered">Single Attribute Debiasing</h1>
+              <div class="columns is-centered has-text-centered">
+                <div class="column is-12">
+        
+                  <div class="content has-text-justified">
+                    <!--
+                    <p>
+                     Explain method
+                    </p>
+                  -->
+                    <div class="container" style="width: 100%;">
+                      <img src="./static/images/single.png" width="100%"/>
+                      <br/>
+                    </div>
+        
+                    <p>
+                      <b>Qualitative results on singular debiasing.</b> Samples generated with the same seed using Stable Diffusion
+                      are displayed on the left, while samples produced with MIST are shown on the right. Our approach effectively debiases single attributes
+                      like gender and race.
+                    </p>
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="container is-max-desktop">
+              <div class="columns is-centered has-text-centered">
+                <div class="column is-12">
+                  <h2 class="title is-3">Intersectional Attribute Debiasing</h2>
+                  
+                    
+                  <div class="content has-text-justified">
+                    <!--
+                    <p>
+                     Explain method
+                    </p>
+                  -->
+                    <div class="container">
+                      <img src="./static/images/intersectional.png" />
+                      <br />
+                    </div>
+                    <p class="has-text-justified">
+                      <b>Qualitative results on intersectional attribute debiasing.</b> Samples generated with the same seed using Stable Diffusion
+                      are displayed on the left, while samples produced with MIST are shown on the right. Our approach effectively debiases intersectional attributes
+                      like gender & race, gender & eyeglass, gender & age & eyeglass.
+                      </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="BibTeX">
+            <div class="container is-max-desktop content">
+              <h2 class="title">BibTeX</h2>
+              <pre><code>
+  @misc{dalva2023noiseclr,
+    title={NoiseCLR: A Contrastive Learning Approach for Unsupervised Discovery of Interpretable Directions in Diffusion Models}, 
+    author={Yusuf Dalva and Pinar Yanardag},
+    year={2023},
+    eprint={2312.05390},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+  }
+              </code></pre>
+            </div>
+          </section>
+          
+          <footer class="footer">
+            <div class="container">
+              <div class="content has-text-centered is-centered">
+                <a class="icon-link" href="https://github.com/yusufdalva" class="external-link" disabled>
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+              <div class="columns">
+                <div class="column is-8">
+                  <div class="content has-text-justified">
+                    <!-- <p>
+                      This website is licensed under a <a rel="license"
+                                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                      Commons Attribution-ShareAlike 4.0 International License</a>.
+                    </p> -->
+                    <p>This page is adapted from <a
+                        href="https://github.com/nerfies/nerfies.github.io">this</a> implementation.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
+    </body>
+</html>
